@@ -185,6 +185,7 @@ def factorize_weight(generator, layer_idx='all'):
             weight = weight.flip(2, 3).permute(1, 0, 2, 3).flatten(1)
         elif gan_type in ['stylegan', 'stylegan2']:
             weight = generator.synthesis.__getattr__(layer_name).style.weight.T
+            print(f"The shape of the weight with index: {idx} is:",weight.shape)
         weights.append(weight.cpu().detach().numpy())
     weight = np.concatenate(weights, axis=1).astype(np.float32)
     weight = weight / np.linalg.norm(weight, axis=0, keepdims=True)
