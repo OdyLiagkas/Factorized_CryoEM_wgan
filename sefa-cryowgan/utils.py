@@ -192,7 +192,7 @@ def factorize_weight(generator, layer_idx='all'):
             layer_name = f'output{idx // 2}'
         elif gan_type == 'cryowgan':
              weight = generator.net[idx].weight
-             weight = weight.flip(2, 3).permute(1, 0, 2, 3).flatten(1)
+             weight = weight.T  #flip(2, 3).permute(1, 0, 2, 3).flatten(1)
         elif gan_type == 'pggan':    
             weight = generator.__getattr__(layer_name).weight
             weight = weight.flip(2, 3).permute(1, 0, 2, 3).flatten(1)
