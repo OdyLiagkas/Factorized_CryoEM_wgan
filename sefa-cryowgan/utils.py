@@ -50,7 +50,7 @@ def postprocess(images, min_val=-1.0, max_val=1.0):
     return images
 
 
-def load_generator(model_name):
+def load_generator(model_name, checkpoint_path):
     """Loads pre-trained generator.
 
     Args:
@@ -79,7 +79,7 @@ def load_generator(model_name):
     os.makedirs(CHECKPOINT_DIR, exist_ok=True)
     '''
     #checkpoint_path = os.path.join(CHECKPOINT_DIR, model_name + '.pth')
-    checkpoint_path = "./checkpoints/cryoEM_wgan.pth"
+    #checkpoint_path = "./checkpoints/cryoEM_wgan.pth"
     print(f'Loading checkpoint from `{checkpoint_path}` ...')
     '''
     if not os.path.exists(checkpoint_path):
