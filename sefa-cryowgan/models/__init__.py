@@ -55,8 +55,10 @@ def build_generator(gan_type, resolution, **kwargs):
     if gan_type == 'stylegan2':
         return StyleGAN2Generator(resolution, **kwargs)
     if gan_type == 'cryowgan':
-        return Cryo_EM_Generator(z_dim=100,
+        return Cryo_EM_Generator(
+            z_dim=100,
             out_ch=1,#for grayscale
+            first_channel_size = 512,  #### CHANGED TO 512 FOR RUN 31!!! IN RUN 32 IT'S 256
             norm_layer=LayerNorm2d,
             final_activation=torch.tanh)
     raise NotImplementedError(f'Unsupported GAN type `{gan_type}`!')
