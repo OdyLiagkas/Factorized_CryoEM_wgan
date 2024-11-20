@@ -51,6 +51,19 @@ class Cryo_EM_Generator(nn.Module):
             nn.ConvTranspose2d(self.fcs//(2**5), self.out_ch, 4, 2, 1, bias=False),
             # * Output Layer 8: 256x256
         )
+        
+    def forward(self, x, synthesize=False):
+        if synthesize:
+            # Skip the first layer if synthesize=True
+            x = self.net[1:](x)  
+        else:
+            x = self.net(x)  
+        return (
+            x if self.final_activation is None else self.final_activation(x)
+        )
+    
+    def sample_latent(self, num_samples):
+        return torch.randn((num_samples, self.z_dim, 1, 1))
 '''
     def __init__(
         self,
@@ -94,15 +107,4 @@ class Cryo_EM_Generator(nn.Module):
         self.layer_dict = {f'layer{i}': layer for i, layer in enumerate(self.net) if isinstance(layer, nn.ConvTranspose2d)}
 '''
     
-    def forward(self, x, synthesize=False):
-        if synthesize:
-            # Skip the first layer if synthesize=True
-            x = self.net[1:](x)  
-        else:
-            x = self.net(x)  
-        return (
-            x if self.final_activation is None else self.final_activation(x)
-        )
-    
-    def sample_latent(self, num_samples):
-        return torch.randn((num_samples, self.z_dim, 1, 1))
+
