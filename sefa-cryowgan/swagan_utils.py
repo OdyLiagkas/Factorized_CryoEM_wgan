@@ -195,7 +195,7 @@ def factorize_weight(generator, layer_idx='all'):
              #OLD weight = generator.net[idx].weight
              #weight = weight.flip(2, 3).permute(1, 0, 2, 3).flatten(1)
              #weight = weight.flatten(1)
-             weight = weight.[0].flip(2, 3).permute(1, 0, 2, 3).flatten(1)
+             weight = weight[0].flip(2, 3).permute(1, 0, 2, 3).flatten(1)
         elif gan_type == 'pggan':    
             weight = generator.__getattr__(layer_name).weight
             weight = weight.flip(2, 3).permute(1, 0, 2, 3).flatten(1)
