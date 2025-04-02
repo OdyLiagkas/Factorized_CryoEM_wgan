@@ -223,17 +223,12 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
         elif gan_type == 'cryowgan':
         	weight = weight_list[idx]     #weight = generator.conv1.conv.weight
         	weight = weight[0].flip(2, 3).permute(1, 0, 2, 3).flatten(1)
-			 
-			 
-			 
         elif gan_type == 'pggan':    
             weight = generator.__getattr__(layer_name).weight
             weight = weight.flip(2, 3).permute(1, 0, 2, 3).flatten(1)
         elif gan_type in ['stylegan', 'stylegan2']:
             weight = generator.synthesis.__getattr__(layer_name).style.weight.T
         
-		
-		
 	weights.append(weight.cpu().detach().numpy())
 		
 		
