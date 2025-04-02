@@ -173,11 +173,11 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
     # Get layers.   #################CHANGED TO INCLUDE WGAN
     if gan_type == 'cryowgan':
         if layer_idx == 'all':
-            layers = parse_indices("0-17")
+            layers = parse_indices("0-3")
         else:
             layers = parse_indices(layer_idx,
                                    min_val=0,
-                                   max_val=18 - 1)	
+                                   max_val=13 - 1)	
              
     elif gan_type == 'pggan':  
         layers = [0]
@@ -201,18 +201,16 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
     weight7 = generator.convs[5].conv.weight
     weight8 = generator.convs[6].conv.weight
     weight9 = generator.convs[7].conv.weight
-    weight10 = generator.convs[8].conv.weight
-    weight11 = generator.convs[9].conv.weight
 
-    weight12 = generator.to_rgbs[0].conv.weight
-    weight13 = generator.to_rgbs[1].conv.weight
-    weight14 = generator.to_rgbs[2].conv.weight
-    weight15 = generator.to_rgbs[3].conv.weight
-    weight16 = generator.to_rgbs[4].conv.weight
-    weight17 = generator.to_rgbs[5].conv.weight
+
+    weight10 = generator.to_rgbs[0].conv.weight
+    weight11 = generator.to_rgbs[1].conv.weight
+    weight12 = generator.to_rgbs[2].conv.weight
+    weight13 = generator.to_rgbs[3].conv.weight
+
 
     weight_list = [weight0, weight1, weight2, weight3, weight4, weight5, weight6, weight7, weight8, weight9, 
-                   weight10, weight11, weight12, weight13, weight14, weight15, weight16, weight17]
+                   weight10, weight11, weight12, weight13]
 
     # Factorize semantics from weight.
     weights = []
