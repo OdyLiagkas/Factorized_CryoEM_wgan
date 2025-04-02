@@ -191,28 +191,28 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
                                    max_val=generator.num_layers - 1)
 
 #SWAGAN WEIGHTS:
-	weight0 = generator.conv1.conv.weight
-	weight1 = generator.to_rgb1.conv.weight
+    weight0 = generator.conv1.conv.weight
+    weight1 = generator.to_rgb1.conv.weight
 
-	weight2 = generator.convs[0].conv.weight
-	weight3 = generator.convs[1].conv.weight
-	weight4 = generator.convs[2].conv.weight
-	weight5 = generator.convs[3].conv.weight
-	weight6 = generator.convs[4].conv.weight
-	weight7 = generator.convs[5].conv.weight
-	weight8 = generator.convs[6].conv.weight
-	weight9 = generator.convs[7].conv.weight
-	weight10 = generator.convs[8].conv.weight
-	weight11 = generator.convs[9].conv.weight
+    weight2 = generator.convs[0].conv.weight
+    weight3 = generator.convs[1].conv.weight
+    weight4 = generator.convs[2].conv.weight
+    weight5 = generator.convs[3].conv.weight
+    weight6 = generator.convs[4].conv.weight
+    weight7 = generator.convs[5].conv.weight
+    weight8 = generator.convs[6].conv.weight
+    weight9 = generator.convs[7].conv.weight
+    weight10 = generator.convs[8].conv.weight
+    weight11 = generator.convs[9].conv.weight
 
-	weight12 = generator.to_rgbs[0].conv.weight
-	weight13 = generator.to_rgbs[1].conv.weight
-	weight14 = generator.to_rgbs[2].conv.weight
-	weight15 = generator.to_rgbs[3].conv.weight
-	weight16 = generator.to_rgbs[4].conv.weight
-	weight17 = generator.to_rgbs[5].conv.weight
+    weight12 = generator.to_rgbs[0].conv.weight
+    weight13 = generator.to_rgbs[1].conv.weight
+    weight14 = generator.to_rgbs[2].conv.weight
+    weight15 = generator.to_rgbs[3].conv.weight
+    weight16 = generator.to_rgbs[4].conv.weight
+    weight17 = generator.to_rgbs[5].conv.weight
 
-	weight_list = [weight0, weight1, weight2, weight3, weight4, weight5, weight6, weight7, weight8, weight9, 
+    weight_list = [weight0, weight1, weight2, weight3, weight4, weight5, weight6, weight7, weight8, weight9, 
                weight10, weight11, weight12, weight13, weight14, weight15, weight16, weight17]
     # Factorize semantics from weight.
     weights = []
@@ -221,9 +221,8 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
         if gan_type == 'stylegan2' and idx == generator.num_layers - 1:
             layer_name = f'output{idx // 2}'
         elif gan_type == 'cryowgan':
-
-			weight = weight_list[idx]
-			#weight = generator.conv1.conv.weight
+	    weight = weight_list[idx]
+	    #weight = generator.conv1.conv.weight
 
             weight = weight[0].flip(2, 3).permute(1, 0, 2, 3).flatten(1)
 			 
@@ -237,7 +236,7 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
         
 		
 		
-		weights.append(weight.cpu().detach().numpy())
+	weights.append(weight.cpu().detach().numpy())
 		
 		
     weight = np.concatenate(weights, axis=1).astype(np.float32)
