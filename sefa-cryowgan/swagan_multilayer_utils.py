@@ -219,12 +219,10 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
     for idx in layers:
         layer_name = f'layer{idx}'
         if gan_type == 'stylegan2' and idx == generator.num_layers - 1:
-            layer_name = f'output{idx // 2}'
+        	layer_name = f'output{idx // 2}'
         elif gan_type == 'cryowgan':
-	    weight = weight_list[idx]
-	    #weight = generator.conv1.conv.weight
-
-            weight = weight[0].flip(2, 3).permute(1, 0, 2, 3).flatten(1)
+        	weight = weight_list[idx]     #weight = generator.conv1.conv.weight
+        	weight = weight[0].flip(2, 3).permute(1, 0, 2, 3).flatten(1)
 			 
 			 
 			 
