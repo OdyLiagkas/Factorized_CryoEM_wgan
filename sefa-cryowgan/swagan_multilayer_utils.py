@@ -153,7 +153,6 @@ def parse_indices(obj, min_val=None, max_val=None):
 
     return indices
 
-
 def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
     """Factorizes the generator weight to get semantics boundaries.
 
@@ -190,7 +189,7 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
                                    min_val=0,
                                    max_val=generator.num_layers - 1)
 
-#SWAGAN WEIGHTS:
+    # SWAGAN WEIGHTS:
     weight0 = generator.conv1.conv.weight
     weight1 = generator.to_rgb1.conv.weight
 
@@ -213,30 +212,31 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
     weight17 = generator.to_rgbs[5].conv.weight
 
     weight_list = [weight0, weight1, weight2, weight3, weight4, weight5, weight6, weight7, weight8, weight9, 
-               weight10, weight11, weight12, weight13, weight14, weight15, weight16, weight17]
+                   weight10, weight11, weight12, weight13, weight14, weight15, weight16, weight17]
+
     # Factorize semantics from weight.
     weights = []
     for idx in layers:
         layer_name = f'layer{idx}'
         if gan_type == 'stylegan2' and idx == generator.num_layers - 1:
-        	layer_name = f'output{idx // 2}'
+            layer_name = f'output{idx // 2}'
         elif gan_type == 'cryowgan':
-        	weight = weight_list[idx]     #weight = generator.conv1.conv.weight
-        	weight = weight[0].flip(2, 3).permute(1, 0, 2, 3).flatten(1)
+            weight = weight_list[idx]     # weight = generator.conv1.conv.weight
+            weight = weight[0].flip(2, 3).permute(1, 0, 2, 3).flatten(1)
         elif gan_type == 'pggan':    
             weight = generator.__getattr__(layer_name).weight
             weight = weight.flip(2, 3).permute(1, 0, 2, 3).flatten(1)
         elif gan_type in ['stylegan', 'stylegan2']:
             weight = generator.synthesis.__getattr__(layer_name).style.weight.T
         
-	weights.append(weight.cpu().detach().numpy())
-		
-		
+        weights.append(weight.cpu().detach().numpy())
+
     weight = np.concatenate(weights, axis=1).astype(np.float32)
     weight = weight / np.linalg.norm(weight, axis=0, keepdims=True)
     eigen_values, eigen_vectors = np.linalg.eig(weight.dot(weight.T))
 
     return layers, eigen_vectors.T, eigen_values
+
 
 
 def get_sortable_html_header(column_name_list, sort_by_ascending=False):
