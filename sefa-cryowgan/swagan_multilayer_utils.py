@@ -177,7 +177,7 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
         else:
             layers = parse_indices(layer_idx,
                                    min_val=0,
-                                   max_val=13 - 1)	
+                                   max_val=13)	
              
     elif gan_type == 'pggan':  
         layers = [0]
