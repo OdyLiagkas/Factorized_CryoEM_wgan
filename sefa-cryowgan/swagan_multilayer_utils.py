@@ -173,7 +173,7 @@ def factorize_weight_multilayer(generator, layer_idx='all'):  # Changed its name
     # Get layers.   #################CHANGED TO INCLUDE WGAN
     if gan_type == 'cryowgan':
         if layer_idx == 'all':
-            layers = parse_indices("0-3")
+            layers = parse_indices("0-13")
         else:
             layers = parse_indices(layer_idx,
                                    min_val=0,
